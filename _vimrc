@@ -24,6 +24,9 @@ Plug 'Raimondi/delimitMate'
 Plug 'elzr/vim-json'
 Plug 'marijnh/tern_for_vim'
 Plug 'walm/jshint.vim'
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'othree/yajs.vim'
+Plug 'bling/vim-airline'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
   nnoremap <silent> <F4> :NERDTreeToggle<CR>
@@ -61,6 +64,7 @@ set ttimeoutlen=50
 set switchbuf=useopen
 set mouse=a
 set breakindent
+set number
 
 filetype plugin indent on
 syntax on
