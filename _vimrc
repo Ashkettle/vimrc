@@ -1,51 +1,117 @@
+
+let mapleader = "\<Space>"
+let s:is_windows = has('win32') || has('win64')
+
+if !filereadable(expand("~/.vim/autoload/plug.vim"))
+    echo "Installing vim-plug and plugins. Restart vim after finishing the process."
+    silent call mkdir(expand("~/.vim/autoload", 1), 'p')
+    execute "!curl -fLo ".expand("~/.vim/autoload/plug.vim", 1)." https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    autocmd VimEnter * PlugInstall
+endif
+
+if s:is_windows
+  set rtp+=~/.vim
+endif
+
+call plug#begin('~/.vim/plugged')
+let g:plug_url_format = 'https://github.com/%s.git'
+
+Plug 'ajh17/VimCompletesMe'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'flazz/vim-colorschemes'
+
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
+  nnoremap <silent> <F4> :NERDTreeToggle<CR>
+  nnoremap <silent> <F5> :NERDTreeFind<CR>
+  let NERDTreeShowHidden=1
+
+
+ call plug#end()
+
+"Sensible Settings..."
+set nocompatible
+set encoding=utf-8
+set listchars=trail:.,tab:>\ ,eol:$
+set lazyredraw
+set laststatus=2
+"set statusline=%-4m%f\ %y\ \ %=%{&ff}\ \|\ %{&fenc}\ \|\ %{virtualenv#statusline()}\ \ [%l:%c]
+set incsearch hlsearch
+set nonumber
+set backspace=indent,eol,start
+set nostartofline
+set autoread
+set scrolloff=3
+set wildmenu wildignorecase wildmode=list:longest,full
+set cursorline
+set ignorecase smartcase
+set showmode showcmd
+set shortmess+=I
+set hidden
+set history=1000
+set complete-=i completeopt=menu
+set splitright splitbelow
+set display+=lastline
+set foldenable foldmethod=syntax foldlevelstart=99
+set ttimeoutlen=50
+set switchbuf=useopen
+set mouse=a
+set breakindent
+
+filetype plugin indent on
 syntax on
-set t_Co=256
-color mango
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+augroup CustomColors
+  autocmd!
+  autocmd ColorScheme * highlight CursorLine cterm=bold ctermbg=NONE gui=bold guibg=NONE
+augroup END
+colorscheme candyman
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" better backup, swap and undo storage
+set noswapfile
+set backup
+set undofile
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'pangloss/vim-javascript'
-Plugin 'elzr/vim-json'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'walm/jshint.vim'
-Plugin 'goatslacker/mango.vim'
-Plugin 'ajh17/VimCompletesMe'
+set backupdir=~/.vim/dirs/backup
+set undodir=~/.vim/dirs/undo
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, "p")
+endif
+if !isdirectory(&undodir)
+  call mkdir(&undodir, "p")
+endif
 
 
+" GUI & Terminal setttings
+if has("gui_running")
+  if has("gui_macvim")
+    set guifont=Consolas:h15
+  elseif has("gui_win32")
+    autocmd GUIEnter * simalt ~x " open maximize in Windows
+    set guifont=Consolas:h11
+  endif
+  set guioptions= " disable all UI options
+  set guicursor+=a:blinkon0 " disable blinking cursor
+  autocmd GUIEnter * set visualbell t_vb=
+else
+  set noerrorbells visualbell t_vb=
+  set term=xterm
+  set t_ut= " setting for looking properly in tmux
+  set t_ti= t_te= " prevent vim from clobbering the scrollback buffer
+  let &t_Co = 256
+  if s:is_windows " trick to support 256 colors in conemu for Windows
+    let &t_AF="\e[38;5;%dm"
+    let &t_AB="\e[48;5;%dm"
+  endif
+endif
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
-map <C-n> :NERDTreeToggle<CR>
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"Syntax Highlighting
-set background=dark
-syntax on
-color mango
+" easy window navigation
+nnoremap <silent> <c-l> <c-w>l
+nnoremap <silent> <c-j> <c-w>j
+nnoremap <silent> <c-h> <c-w>h
+nnoremap <silent> <c-k> <c-w>k
+nnoremap <silent> <leader>\ <c-^>
+nnoremap <silent> <leader>q :botright copen<cr>
