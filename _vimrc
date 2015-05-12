@@ -20,7 +20,10 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'flazz/vim-colorschemes'
-
+Plug 'Raimondi/delimitMate'
+Plug 'elzr/vim-json'
+Plug 'marijnh/tern_for_vim'
+Plug 'walm/jshint.vim'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
   nnoremap <silent> <F4> :NERDTreeToggle<CR>
