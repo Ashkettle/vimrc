@@ -16,6 +16,8 @@ endif
 call plug#begin('~/.vim/plugged')
 let g:plug_url_format = 'https://github.com/%s.git'
 
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -27,6 +29,8 @@ Plug 'walm/jshint.vim'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'othree/yajs.vim'
 Plug 'bling/vim-airline'
+Plug 'garbas/vim-snipmate'
+Plug 'isRuslan/vim-es6'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
   nnoremap <silent> <F4> :NERDTreeToggle<CR>
@@ -49,7 +53,6 @@ set encoding=utf-8
 set listchars=trail:.,tab:>\ ,eol:$
 set lazyredraw
 set laststatus=2
-"set statusline=%-4m%f\ %y\ \ %=%{&ff}\ \|\ %{&fenc}\ \|\ %{virtualenv#statusline()}\ \ [%l:%c]
 set incsearch hlsearch
 set nonumber
 set backspace=indent,eol,start
