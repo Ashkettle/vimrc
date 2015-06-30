@@ -25,12 +25,12 @@ Plug 'flazz/vim-colorschemes'
 Plug 'Raimondi/delimitMate'
 Plug 'elzr/vim-json'
 Plug 'marijnh/tern_for_vim'
-Plug 'walm/jshint.vim'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'othree/yajs.vim'
 Plug 'bling/vim-airline'
 Plug 'garbas/vim-snipmate'
 Plug 'isRuslan/vim-es6'
+Plug 'mxw/vim-jsx'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
   nnoremap <silent> <F4> :NERDTreeToggle<CR>
@@ -44,6 +44,7 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
+let g:jsx_ext_required = 0 "Allow JSX in normal JS files
 
  call plug#end()
 
