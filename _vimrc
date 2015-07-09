@@ -25,12 +25,11 @@ Plug 'flazz/vim-colorschemes'
 Plug 'Raimondi/delimitMate'
 Plug 'elzr/vim-json'
 Plug 'marijnh/tern_for_vim'
-Plug 'vim-scripts/SyntaxComplete'
-Plug 'othree/yajs.vim'
 Plug 'bling/vim-airline'
 Plug 'garbas/vim-snipmate'
 Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
+Plug 'scrooloose/syntastic'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "{{{
   nnoremap <silent> <F4> :NERDTreeToggle<CR>
@@ -45,6 +44,15 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:jsx_ext_required = 0 "Allow JSX in normal JS files
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 
  call plug#end()
 
@@ -148,7 +156,15 @@ inoremap  <Down>   <NOP>
 inoremap  <Left>   <NOP>
 inoremap  <Right>  <NOP>
 
-"Adding Buffer Support for System Clipboard Support
-vmap <C-c> "+y
-map <C-v> "+p
-imap <C-v> <esc><C-v>
+set clipboard=unnamed
+
+set viminfo='100,<500,s20,h
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
